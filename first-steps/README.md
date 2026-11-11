@@ -15,34 +15,29 @@ This repository contains a small blog API built with FastAPI. It is used to prac
 
 ## Requirements
 
-- Python 3.10 or newer
-- pip
+- Python 3.14 or newer
+- [uv](https://docs.astral.sh/uv/getting-started/installation/)
 
 ## Getting started
 
-From the project directory, create and activate a virtual environment:
+From the project directory, install the dependencies declared in `pyproject.toml`:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
+uv sync
 ```
 
-On Windows PowerShell, activate it with:
+`uv sync` creates the `.venv` virtual environment and installs the versions recorded in `uv.lock`.
 
-```powershell
-.venv\Scripts\Activate.ps1
-```
-
-Install the application dependencies:
+Start the development server:
 
 ```bash
-pip install "fastapi[standard]" sqlalchemy pydantic-settings PyJWT
+uv run uvicorn app.main:app --reload
 ```
 
-Run the development server from the project directory:
+`uv run` executes the command in the project's environment. Alternatively, start the server with FastAPI's development command:
 
 ```bash
-uvicorn app.main:app --reload
+uv run fastapi dev app/main.py
 ```
 
 The API is available at <http://127.0.0.1:8000>. Interactive API documentation is available at <http://127.0.0.1:8000/docs>.
