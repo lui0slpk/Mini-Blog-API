@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import TYPE_CHECKING, List
 
 from sqlalchemy import (
@@ -40,7 +40,7 @@ class PostORM(Base):
     content: Mapped[String] = mapped_column(Text, nullable=False)
     image_url: Mapped[String] = mapped_column(String(2048), nullable=True)
     created_at: Mapped[datetime] = mapped_column(
-        DateTime, default=datetime.utcnow)
+        DateTime, default=datetime.now(timezone.utc))
 
     author_id: Mapped[int | None] = mapped_column(ForeignKey("authors.id"))
     author: Mapped[AuthorORM | None] = relationship(back_populates="posts")
