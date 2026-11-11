@@ -7,7 +7,9 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jwt.exceptions import ExpiredSignatureError, InvalidTokenError
 
-SECRET_KEY = os.getenv("SECRET_KEY", "change-my-in-prod")
+from app.core.config import settings
+
+SECRET_KEY = settings.SECRET_KEY
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRES_MINUTES = int(
     os.getenv("ACCESS_TOKEN_EXPIRES_MINUTES", "30"))
