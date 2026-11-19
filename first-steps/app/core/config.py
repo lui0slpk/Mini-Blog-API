@@ -3,7 +3,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite:///./blog.db"
-    SECRET_KEY: str = "change-my-in-prod"
+    JWT_SECRET_KEY: str = "change-my-in-prod"
+    JWT_ACCESS_TOKEN_EXPIRES_MINUTES: int = 30
+    JWT_ALGORITHM: str = "HS256"
     MAX_UPLOAD_MB: int = 10
 
     model_config = SettingsConfigDict(
