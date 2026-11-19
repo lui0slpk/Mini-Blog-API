@@ -1,8 +1,7 @@
 from datetime import datetime, timezone
 from enum import StrEnum
-from typing import Literal
 
-from sqlalchemy import Boolean, DateTime, Enum, Integer, String
+from sqlalchemy import Boolean, DateTime, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.db import Base
