@@ -112,7 +112,7 @@ async def get_current_user(db: Session = Depends(get_db), token: str = Depends(o
     return user
 
 
-def hashed_password(plain: str) -> str:
+def hash_password(plain: str) -> str:
     return password_hash.hash(plain)
 
 
