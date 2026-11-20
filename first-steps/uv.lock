@@ -211,8 +211,10 @@ dependencies = [
     { name = "markdown-it-py" },
     { name = "markupsafe" },
     { name = "mdurl" },
+    { name = "passlib" },
     { name = "psycopg" },
     { name = "psycopg-binary" },
+    { name = "pwdlib" },
     { name = "pydantic" },
     { name = "pydantic-core" },
     { name = "pydantic-extra-types" },
@@ -265,8 +267,10 @@ requires-dist = [
     { name = "markdown-it-py", specifier = "==4.2.0" },
     { name = "markupsafe", specifier = "==3.0.3" },
     { name = "mdurl", specifier = "==0.1.2" },
+    { name = "passlib", specifier = ">=1.7.4" },
     { name = "psycopg", specifier = "==3.3.5" },
     { name = "psycopg-binary", specifier = "==3.3.5" },
+    { name = "pwdlib", specifier = ">=0.4.2" },
     { name = "pydantic", specifier = "==2.13.4" },
     { name = "pydantic-core", specifier = "==2.46.4" },
     { name = "pydantic-extra-types", specifier = "==2.11.1" },
@@ -473,6 +477,15 @@ wheels = [
 ]
 
 [[package]]
+name = "passlib"
+version = "1.7.4"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/b6/06/9da9ee59a67fae7761aab3ccc84fa4f3f33f125b370f1ccdb915bf967c11/passlib-1.7.4.tar.gz", hash = "sha256:defd50f72b65c5402ab2c573830a6978e5f202ad0d984793c8dde2c4152ebe04", size = 689844, upload-time = "2020-10-08T19:00:52.121Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/3b/a4/ab6b7589382ca3df236e03faa71deac88cae040af60c071a78d254a62172/passlib-1.7.4-py2.py3-none-any.whl", hash = "sha256:aa6bca462b8d8bda89c70b382f0c298a20b5560af6cbfa2dce410c0a2fb669f1", size = 525554, upload-time = "2020-10-08T19:00:49.856Z" },
+]
+
+[[package]]
 name = "psycopg"
 version = "3.3.5"
 source = { registry = "https://pypi.org/simple" }
@@ -500,6 +513,15 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/c1/72/33f293c1d3ee9114f47e9ef4880f31c9de864e84a9b09454c26e106c25ed/psycopg_binary-3.3.5-cp314-cp314-musllinux_1_2_riscv64.whl", hash = "sha256:8dbd694f3741dd4ac5bc60b70e17f7841aefb3f0f38cef4d2756de270e03af43", size = 4011958, upload-time = "2026-08-31T22:45:24.792Z" },
     { url = "https://files.pythonhosted.org/packages/b7/c9/8e38840e5a7d006987bbc9acb29951912253fa50549a4db92b3aa535f089/psycopg_binary-3.3.5-cp314-cp314-musllinux_1_2_x86_64.whl", hash = "sha256:14f432430fd9e1a9e7d9ab2fe14956c77f5d074ebdc556a1ad04e9a1bd3fca04", size = 4323273, upload-time = "2026-08-31T22:45:32.973Z" },
     { url = "https://files.pythonhosted.org/packages/fc/c7/b7ebf601c307f93e7c4c4ebac0edc9db3b2729ca038efe700a18f86b5517/psycopg_binary-3.3.5-cp314-cp314-win_amd64.whl", hash = "sha256:df209e64674a34b41662c67fdc8b4e0ffd77d2136393790691d086a09f9a6cab", size = 3745885, upload-time = "2026-08-31T22:45:40.537Z" },
+]
+
+[[package]]
+name = "pwdlib"
+version = "0.4.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/4c/35/dcd08c5125c88d7783b6d2b5bb38d96970f79586e7f75fba79feecfc05b5/pwdlib-0.4.2.tar.gz", hash = "sha256:8f74cfd9c602982a9a05240c5b6484e384d732a891fd3c44befba2be9c4a4748", size = 228154, upload-time = "2026-11-15T13:07:23.013Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/47/1f/26e4bd61ac0b264fb9f1d181fa35d6e2969b2b6fd874d4cca7531b5babd0/pwdlib-0.4.2-py3-none-any.whl", hash = "sha256:5e03f706382a040a04139f2bbb3378fa964661f8a74e1cec8da34a221c801bcf", size = 9881, upload-time = "2026-11-15T13:07:21.779Z" },
 ]
 
 [[package]]
