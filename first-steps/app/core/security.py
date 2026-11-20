@@ -133,7 +133,7 @@ def require_role(min_role: Literal["user", "editor", "admin"]) -> User:
 
         return user
 
-    return evaluation()
+    return evaluation
 
 
 require_user = require_role("user")
