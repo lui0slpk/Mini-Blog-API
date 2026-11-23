@@ -1,5 +1,4 @@
 
-from math import ceil
 from typing import Annotated, Literal, Union
 
 from fastapi import (
@@ -16,7 +15,8 @@ from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.orm import Session
 
 from app.core.db import get_db
-from app.core.security import get_current_user, oauth2_scheme
+from app.core.security import oauth2_scheme, require_admin, require_editor, require_user
+from app.models.user import User
 from app.services.file_storage import save_uploaded_file
 
 from .repository import PostRepository
@@ -99,7 +99,7 @@ async def get_post(post_id: int = Path(
 
 
 @router.post("", response_model=PostPublic, response_description="Nuevo post creado", status_code=status.HTTP_201_CREATED)
-async def create_post(post: Annotated[PostCreate, Depends(PostCreate.as_form)], image: UploadFile = File(None), db: Session = Depends(get_db), user=Depends(get_current_user)):
+async def create_post(post: Annotated[PostCreate, Depends(PostCreate.as_form)], image: UploadFile = File(None), db: Session = Depends(get_db), _editor: User = Depends(require_editor)):
     repository = PostRepository(db)
     saved = None
 
@@ -112,7 +112,7 @@ async def create_post(post: Annotated[PostCreate, Depends(PostCreate.as_form)], 
         post = repository.create_post(
             title=post.title,
             content=post.content,
-            author=user,
+            author=_editor,
             tags=[tag.model_dump() for tag in post.tags],
             image_url=image_url
         )
@@ -129,7 +129,7 @@ async def create_post(post: Annotated[PostCreate, Depends(PostCreate.as_form)], 
 
 
 @router.put("/{post_id}", response_model=PostPublic, response_description="Post actualizado", response_model_exclude_none=True)
-async def update_post(post_id: int, data: PostUpdate, db: Session = Depends(get_db), user=Depends(get_current_user)):
+async def update_post(post_id: int, data: PostUpdate, db: Session = Depends(get_db), _editor: User = Depends(require_editor)):
     repository = PostRepository(db)
     post = repository.get(post_id)
 
@@ -153,7 +153,7 @@ async def update_post(post_id: int, data: PostUpdate, db: Session = Depends(get_
 
 # If don't want to return any value, use "status_code=204"
 @router.delete("/{post_id}", status_code=status.HTTP_204_NO_CONTENT, response_description="Post eliminado")
-async def delete_post(post_id: int, db: Session = Depends(get_db), user=Depends(get_current_user)):
+async def delete_post(post_id: int, db: Session = Depends(get_db), _admin: User = Depends(require_admin)):
     repository = PostRepository(db)
     post = repository.get(post_id)
 

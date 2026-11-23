@@ -1,12 +1,11 @@
 
-from math import ceil
 from typing import Any
 
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session, joinedload, selectinload
 
-from app.api.v1.posts.schemas import PaginatedPost
 from app.models import AuthorORM, PostORM, TagORM
+from app.models.user import User
 from app.services.pagination import paginate_query
 
 
@@ -101,12 +100,12 @@ class PostRepository:
 
         return tag_obj
 
-    def create_post(self, title: str, content: str, author: dict | None, tags: list[dict], image_url: str) -> PostORM:
+    def create_post(self, title: str, content: str, author: User | None, tags: list[dict], image_url: str) -> PostORM:
         author_obj = None
 
         if author:
             author_obj = self.ensure_author(
-                name=author["username"], email=author["email"])
+                name=author.full_name, email=author.email)
 
         post = PostORM(
             title=title, content=content, image_url=image_url, author=author_obj)
