@@ -5,7 +5,14 @@ from sqlalchemy.orm import Session
 
 from app.api.v1.auth.repository import UserRepository
 from app.core.db import get_db
-from app.core.security import create_access_token, get_current_user, hash_password, oauth2_token, verify_password, require_admin
+from app.core.security import (
+    create_access_token,
+    get_current_user,
+    hash_password,
+    oauth2_token,
+    require_admin,
+    verify_password,
+)
 from app.models.user import User
 
 from .schemas import RoleUpdate, TokenResponse, UserCreate, UserLogin, UserPublic
