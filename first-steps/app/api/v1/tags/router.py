@@ -7,7 +7,8 @@ from sqlalchemy.orm import Session
 from app.api.v1.tags.repository import TagRepository
 from app.api.v1.tags.schemas import TagCreate, TagPublic, TagUpdate
 from app.core.db import get_db
-from app.core.security import get_current_user
+from app.core.security import require_admin, require_editor, require_user
+from app.models.user import User
 
 router = APIRouter(prefix="/tags", tags=["tags"])
 
@@ -49,7 +50,7 @@ def list_tags(
 
 
 @router.post("", response_model=TagPublic, response_description="Tag creada (OK)", status_code=status.HTTP_201_CREATED, description="Create a new tag")
-def create_tag(tag: TagCreate, db: Session = Depends(get_db), user=Depends(get_current_user)):
+def create_tag(tag: TagCreate, db: Session = Depends(get_db), _editor: User = Depends(require_editor)):
     repository = TagRepository(db)
 
     try:
@@ -70,7 +71,7 @@ def create_tag(tag: TagCreate, db: Session = Depends(get_db), user=Depends(get_c
 
 
 @router.put("", response_model=TagPublic, response_description="Tag actualizada correctamente", status_code=status.HTTP_200_OK, description="Update an existing tag")
-def update_tag(tag_id: int, payload: TagUpdate, db: Session = Depends(get_db), user=Depends(get_current_user)):
+def update_tag(tag_id: int, payload: TagUpdate, db: Session = Depends(get_db), _editor: User = Depends(require_editor)):
     repository = TagRepository(db)
     tag = repository.get(tag_id)
 
@@ -95,7 +96,7 @@ def update_tag(tag_id: int, payload: TagUpdate, db: Session = Depends(get_db), u
 
 
 @router.delete("/{tag_id}", response_description="Tag eliminada correctamente", status_code=status.HTTP_204_NO_CONTENT)
-def delete_tag(tag_id: int, db: Session = Depends(get_db), user=Depends(get_current_user)):
+def delete_tag(tag_id: int, db: Session = Depends(get_db), _admin: User = Depends(require_admin)):
     repository = TagRepository(db)
     tag = repository.get(tag_id)
 
@@ -113,7 +114,7 @@ def delete_tag(tag_id: int, db: Session = Depends(get_db), user=Depends(get_curr
 
 
 @router.get("/popular")
-def get_most_popular(db: Session = Depends(get_db), user=Depends(get_current_user)):
+def get_most_popular(db: Session = Depends(get_db), _user: User = Depends(require_user)):
     repository = TagRepository(db)
     row = repository.most_popular()
 
