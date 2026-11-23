@@ -2,7 +2,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Path, status
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.orm import Session
-from starlette.status import HTTP_401_UNAUTHORIZED
 
 from app.api.v1.auth.repository import UserRepository
 from app.core.db import get_db
@@ -55,7 +54,7 @@ async def login(payload: UserLogin, db: Session = Depends(get_db)):
     user = repository.get_by_email(payload.email)
     if not user or not verify_password(payload.password, user.hashed_password):
         raise HTTPException(
-            status_code=HTTP_401_UNAUTHORIZED,
+            status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Credenciales inválidas"
         )
 
