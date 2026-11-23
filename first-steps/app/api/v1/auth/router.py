@@ -1,13 +1,12 @@
 
 from fastapi import APIRouter, Depends, HTTPException, Path, status
-from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.orm import Session
 from starlette.status import HTTP_401_UNAUTHORIZED
 
 from app.api.v1.auth.repository import UserRepository
 from app.core.db import get_db
-from app.core.security import create_access_token, get_current_user, hash_password, verify_password, require_admin
+from app.core.security import create_access_token, get_current_user, hash_password, oauth2_token, verify_password, require_admin
 from app.models.user import User
 
 from .schemas import RoleUpdate, TokenResponse, UserCreate, UserLogin, UserPublic
@@ -94,6 +93,11 @@ def set_role(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Error al actualizar el rol"
         )
+
+
+@router.post("/token")
+async def token_endpoint(response=Depends(oauth2_token)):
+    return response
 
 
 @router.get("/me", response_model=UserPublic)
