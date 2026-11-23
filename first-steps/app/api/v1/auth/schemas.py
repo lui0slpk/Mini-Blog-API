@@ -21,18 +21,21 @@ class UserCreate(BaseModel):
     email: EmailStr
     password: str = Field(
         min_length=8,
-        max_length=72
+        max_length=72,
+        examples=["Password123"]
     )
     full_name: str = Field(
         min_length=3,
-        max_length=70
+        max_length=70,
+        examples=["John Doe"]
     )
 
 
 class UserLogin(BaseModel):
     email: EmailStr
     password: str = Field(
-        max_length=72
+        max_length=72,
+        examples=["Password123"]
     )
 
 
